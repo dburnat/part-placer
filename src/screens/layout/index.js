@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import {
   Grid,
@@ -7,6 +8,8 @@ import {
   Hidden,
   FormControlLabel,
   Switch,
+  MenuItem,
+  Select,
   useMediaQuery,
   useTheme
 } from "@material-ui/core";
@@ -73,7 +76,14 @@ KerfForm.propTypes = {
 };
 
 function Layout({ headerRef }) {
-  const { state, setKerf, setRotation } = useStore();
+  const {
+    state,
+    setKerf,
+    setRotation,
+    setSelectionStrategy,
+    setSplitStrategy,
+    setSortStrategy
+  } = useStore();
   const [layouts, setLayouts] = useState(null);
   const { pageview, event } = useAnalytics();
   const { enqueueSnackbar } = useSnackbar();
@@ -86,6 +96,24 @@ function Layout({ headerRef }) {
   };
   const handleRotationChange = e => {
     setRotation(Boolean(e.target.checked));
+  };
+
+  const handleSelectionStrategyChange = newStrategy => {
+    setSelectionStrategy(newStrategy ?? undefined);
+    enqueueSnackbar(`Selection strategy updated`, { variant: "success" });
+    event({ category: "Layout", action: "Selection strategy Changed" });
+  };
+
+  const handleSplitStrategyChange = newStrategy => {
+    setSplitStrategy(newStrategy);
+    enqueueSnackbar(`Split strategy updated`, { variant: "success" });
+    event({ category: "Layout", action: "Split strategy Changed" });
+  };
+
+  const handleSortStrategyChange = newStrategy => {
+    setSortStrategy(newStrategy);
+    enqueueSnackbar(`Sort strategy updated`, { variant: "success" });
+    event({ category: "Layout", action: "Sort strategy Changed" });
   };
 
   useEffect(() => {
@@ -101,6 +129,13 @@ function Layout({ headerRef }) {
     const convertedKerfSize = parseDimension(state.kerfSize) * MULTIPLIER;
     const convertAndScaleDimension = dimension =>
       Math.ceil(parseDimension(dimension) * MULTIPLIER);
+
+    const selectionStrategy =
+      state.selectionStrategy === "" ? undefined : state.selectionStrategy;
+    const splitStrategy =
+      state.splitStrategy === "" ? undefined : state.splitStrategy;
+    const sortStrategy =
+      state.sortStrategy === "" ? undefined : state.sortStrategy;
 
     Promise.all(
       state.materials.map(async material => {
@@ -129,7 +164,13 @@ function Layout({ headerRef }) {
             binWidth: inputs.width,
             items: inputs.convertedParts
           },
-          { kerfSize: convertedKerfSize, allowRotation: state.allowRotation }
+          {
+            kerfSize: convertedKerfSize,
+            allowRotation: state.allowRotation,
+            selectionStrategy: selectionStrategy,
+            splitStrategy: splitStrategy,
+            sortStrategy: sortStrategy
+          }
         );
         return inputs;
       })
@@ -137,7 +178,15 @@ function Layout({ headerRef }) {
       event({ category: "Layout", action: "Layout Generated" });
       setLayouts(transformedMaterials);
     });
-  }, [state.materials, event, state.kerfSize, state.allowRotation]);
+  }, [
+    state.materials,
+    event,
+    state.kerfSize,
+    state.allowRotation,
+    state.selectionStrategy,
+    state.splitStrategy,
+    state.sortStrategy
+  ]);
 
   return (
     <Grid container spacing={3}>
@@ -174,6 +223,59 @@ function Layout({ headerRef }) {
                 labelPlacement="top"
                 label={`${matches ? "Allow " : ""}Rotation?`}
               />
+              {/* Strategy selectors */}
+              <FormControlLabel
+                control={
+                  <Select
+                    value={state.selectionStrategy}
+                    onChange={e =>
+                      handleSelectionStrategyChange(e.target.value)
+                    }
+                  >
+                    <MenuItem value="">-</MenuItem>
+                    <MenuItem value={0}>BEST_SHORT_SIDE_FIT</MenuItem>
+                    <MenuItem value={1}>BEST_LONG_SIDE_FIT</MenuItem>
+                    <MenuItem value={2}>BEST_AREA_FIT</MenuItem>
+                  </Select>
+                }
+                labelPlacement="top"
+                label="Selection Strategy"
+              />
+              <FormControlLabel
+                control={
+                  <Select
+                    value={state.splitStrategy}
+                    onChange={e => handleSplitStrategyChange(e.target.value)}
+                  >
+                    <MenuItem value="">-</MenuItem>
+                    <MenuItem value={0}>LongLeftoverAxisSplit</MenuItem>
+                    <MenuItem value={1}>ShortLeftoverAxisSplit</MenuItem>
+                    <MenuItem value={2}>LongAxisSplit</MenuItem>
+                    <MenuItem value={3}>ShortAxisSplit</MenuItem>
+                  </Select>
+                }
+                labelPlacement="top"
+                label="Split Strategy"
+              />
+              <FormControlLabel
+                control={
+                  <Select
+                    value={state.sortStrategy}
+                    onChange={e => handleSortStrategyChange(e.target.value)}
+                  >
+                    <MenuItem value="">-</MenuItem>
+                    <MenuItem value={0}>Area</MenuItem>
+                    <MenuItem value={1}>ShortSide</MenuItem>
+                    <MenuItem value={2}>LongSide</MenuItem>
+                    <MenuItem value={3}>Perimeter</MenuItem>
+                    <MenuItem value={4}>Differences</MenuItem>
+                    <MenuItem value={5}>Ratio</MenuItem>
+                  </Select>
+                }
+                labelPlacement="top"
+                label="Sort Strategy"
+              />
+              {/* End of Strategy selectors */}
             </ActionBar>
           </Grid>
           {layouts.map(material => (

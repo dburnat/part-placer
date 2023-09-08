@@ -12,13 +12,19 @@ const ACKNOWLEDGE_WELCOME = "ACKNOWLEDGE_WELCOME";
 const HYDRATE = "HYDRATE";
 const SET_KERF = "SET_KERF";
 const SET_ROTATION = "SET_ROTATION";
+const SET_SELECTION_STRATEGY = "SET_SELECTION_STRATEGY";
+const SET_SPLIT_STRATEGY = "SET_SPLIT_STRATEGY";
+const SET_SORT_STRATEGY = "SET_SORT_STRATEGY";
 
 export const defaultInitialState = {
   materials: [],
   showWelcome: true,
   shared: false,
   allowRotation: true,
-  kerfSize: '1/8"'
+  kerfSize: "0",
+  selectionStrategy: "",
+  splitStrategy: "",
+  sortStategy: ""
 };
 
 const getId = materials =>
@@ -74,6 +80,12 @@ const reducer = (state, action) => {
       return { ...state, allowRotation: action.payload };
     case HYDRATE:
       return { ...action.payload, showWelcome: state.showWelcome };
+    case SET_SELECTION_STRATEGY:
+      return { ...state, selectionStrategy: action.payload };
+    case SET_SPLIT_STRATEGY:
+      return { ...state, splitStrategy: action.payload };
+    case SET_SORT_STRATEGY:
+      return { ...state, sortStrategy: action.payload };
     default:
       throw new Error(`Unknown action type ${action.type}`);
   }
@@ -178,6 +190,15 @@ export function useStore() {
     },
     setRotation: rotationAllowed => {
       return dispatch({ type: SET_ROTATION, payload: rotationAllowed });
+    },
+    setSelectionStrategy: strategy => {
+      return dispatch({ type: SET_SELECTION_STRATEGY, payload: strategy });
+    },
+    setSplitStrategy: strategy => {
+      return dispatch({ type: SET_SPLIT_STRATEGY, payload: strategy });
+    },
+    setSortStrategy: strategy => {
+      return dispatch({ type: SET_SORT_STRATEGY, payload: strategy });
     },
     acknowledgeWelcome: () => {
       event({

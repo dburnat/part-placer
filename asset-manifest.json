@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.js": "/part-placer/static/js/main.a781f9b5.chunk.js",
+    "main.js.map": "/part-placer/static/js/main.a781f9b5.chunk.js.map",
+    "runtime-main.js": "/part-placer/static/js/runtime-main.f0ec11fb.js",
+    "runtime-main.js.map": "/part-placer/static/js/runtime-main.f0ec11fb.js.map",
+    "static/js/2.0dd6db78.chunk.js": "/part-placer/static/js/2.0dd6db78.chunk.js",
+    "static/js/2.0dd6db78.chunk.js.map": "/part-placer/static/js/2.0dd6db78.chunk.js.map",
+    "static/js/3.de4a423c.chunk.js": "/part-placer/static/js/3.de4a423c.chunk.js",
+    "static/js/3.de4a423c.chunk.js.map": "/part-placer/static/js/3.de4a423c.chunk.js.map",
+    "static/js/4.df3c6508.chunk.js": "/part-placer/static/js/4.df3c6508.chunk.js",
+    "static/js/4.df3c6508.chunk.js.map": "/part-placer/static/js/4.df3c6508.chunk.js.map",
+    "static/js/5.53e12255.chunk.js": "/part-placer/static/js/5.53e12255.chunk.js",
+    "static/js/5.53e12255.chunk.js.map": "/part-placer/static/js/5.53e12255.chunk.js.map",
+    "static/js/6.b51a0929.chunk.js": "/part-placer/static/js/6.b51a0929.chunk.js",
+    "static/js/6.b51a0929.chunk.js.map": "/part-placer/static/js/6.b51a0929.chunk.js.map",
+    "649eb75d772d9c025db7.worker.js": "/part-placer/649eb75d772d9c025db7.worker.js",
+    "649eb75d772d9c025db7.worker.js.map": "/part-placer/649eb75d772d9c025db7.worker.js.map",
+    "index.html": "/part-placer/index.html",
+    "precache-manifest.89d3ac91ab6aeff5164d7ee69c379b0e.js": "/part-placer/precache-manifest.89d3ac91ab6aeff5164d7ee69c379b0e.js",
+    "service-worker.js": "/part-placer/service-worker.js",
+    "static/js/2.0dd6db78.chunk.js.LICENSE": "/part-placer/static/js/2.0dd6db78.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f0ec11fb.js",
+    "static/js/2.0dd6db78.chunk.js",
+    "static/js/main.a781f9b5.chunk.js"
+  ]
+}

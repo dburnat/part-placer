@@ -2,16 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import * as Sentry from "@sentry/browser";
-
-window.env = process.env;
-if (process.env.REACT_APP_SENTRY_RELEASE) {
-  Sentry.init({
-    dsn: "https://b78fcee4986a4f269690bcd801daf5ff@sentry.io/1880175",
-    release: process.env.REACT_APP_SENTRY_RELEASE,
-    environment: process.env.NODE_ENV
-  });
-}
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

@@ -1,6 +1,7 @@
 {
   "name": "part-placer",
   "version": "0.1.0",
+  "homepage": "https://dburnat.github.io/part-placer",
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
@@ -19,6 +20,8 @@
     "styled-components": "^4.4.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "export REACT_APP_SENTRY_RELEASE=$NOW_GITHUB_COMMIT_SHA; react-scripts build",
     "test": "react-scripts test",
@@ -46,6 +49,7 @@
     "debug": "^4.1.1",
     "formik": "^2.1.1",
     "formik-material-ui": "^1.0.0",
+    "gh-pages": "^6.0.0",
     "guillotine-packer": "^1.0.2",
     "notistack": "^0.9.7",
     "parse-dimension": "^2.0.0",

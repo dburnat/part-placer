@@ -1,7 +1,7 @@
 {
   "name": "part-placer",
   "version": "0.1.0",
-  "homepage": "https://dburnat.github.io/part-placer",
+  "homepage": "https://dburnat.github.io/part-placer/#",
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
